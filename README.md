@@ -20,8 +20,9 @@ infopoisk_project/
 │ ├── model.bin
 │ └── navec_*.tar
 │
+├── main.py
 ├── preprocessing.py # Предобработка текста
-├── BM25.py # BM25 индекс
+├── index_BM25.py # BM25 индекс
 ├── search.py # Поисковик
 ├── word2vec.py # Word2Vec
 ├── other.py # Navec
