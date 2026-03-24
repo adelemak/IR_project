@@ -1,31 +1,22 @@
-from typing import List, Tuple
-from rank_bm25 import BM25Okapi
+import numpy as np
+from gensim.models import KeyedVectors
+import pandas as pd
+
+from preprocessing import TextPreprocessor
 
 
-# реализация BM25 обратного индекса через библиотеку
-class BM25Index:
-    def __init__(self) -> None:
-        self.bm25 = None
-        self.documents = None
+w2v_model = KeyedVectors.load_word2vec_format('models/model.bin', binary=True)
 
-    def build(self, documents: List[List[str]]) -> None:
-        self.documents = documents
-        self.bm25 = BM25Okapi(documents)
+corpus = pd.read_csv('data/youtube_comments_sample_1500 copy.csv')
+texts = corpus["text"].tolist()
+preprocessor = TextPreprocessor()
+result = preprocessor.process_corpus(texts)
 
-    def search(
-            self,
-            query_tokens: List[str],
-            top_k: int = 5
-    ) -> List[Tuple[int, float]]:
-        scores = self.bm25.get_scores(query_tokens)
 
-        ranked_doc_ids = sorted(
-            range(len(scores)),
-            key=lambda i: scores[i],
-            reverse=True
-        )
-        results = []
-        for doc_id in ranked_doc_ids[:top_k]:
-            results.append((doc_id, float(scores[doc_id])))
+def get_w2v_vector(text, model):
+    vectors = [model[w] for w in text if w in model]
+    return np.mean(vectors, axis=0) if vectors else np.zeros(model.vector_size)
 
-        return results
+
+doc_vectors = np.array([get_w2v_vector(doc, w2v_model) for doc in result])
+np.save('w2v_index.npy', doc_vectors)
