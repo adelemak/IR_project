@@ -15,9 +15,8 @@ result = preprocessor.process_corpus(texts, upos=False)
 
 
 def get_navec_vector(text, model):
-    # У navec есть специальный токен <unk> для слов не из словаря
     vectors = [model[w] if w in model else model['<unk>'] for w in text]
-    return np.mean(vectors, axis=0) if vectors else np.zeros(300) # размерность обычно 300
+    return np.mean(vectors, axis=0) if vectors else np.zeros(300)
 
 
 doc_vectors = np.array([get_navec_vector(doc, navec_model) for doc in result])
