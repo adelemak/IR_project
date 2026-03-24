@@ -1,7 +1,7 @@
 import re
 import string
 from typing import List
-
+import nltk
 import pymorphy3
 from nltk.corpus import stopwords
 
@@ -72,7 +72,6 @@ class TextPreprocessor:
         lemmas = self.lemmatize(tokens, upos)
         return lemmas
 
-    # Главная функция
     def process_corpus(self, texts: List[str], upos=True) -> List[List[str]]:
         processed_documents = []
         for text in texts:
@@ -81,10 +80,3 @@ class TextPreprocessor:
         return processed_documents
 
 
-preprocessor = TextPreprocessor()
-text = 'сделавший'
-
-result = preprocessor.process_text(text)
-print(result)
-
-print(stopwords)
