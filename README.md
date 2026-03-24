@@ -36,3 +36,4 @@ infopoisk_project/
 ```
 python main.py --query "привет" --index bm25 --top 3
 ```
+Параметры: запрос, тип индекса, число топ документов на выдачу.
