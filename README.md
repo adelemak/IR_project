@@ -11,6 +11,7 @@
 
 ### Модели
 [Navec](https://github.com/ba-soft/natasha-navec)
+
 [Word2Vec](https://vectors.nlpl.eu/repository/20/185.zip)
 
 Выбирали исходя из веса моделей. 
