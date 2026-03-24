@@ -1,4 +1,3 @@
-from gensim.models import Word2Vec
 import numpy as np
 from gensim.models import KeyedVectors
 import pandas as pd
@@ -15,9 +14,6 @@ result = preprocessor.process_corpus(texts)
 
 
 def get_w2v_vector(text, model):
-    # words = text.split()
-    # Важно: RusVectōrēs часто требует теги частей речи (например, 'мама_NOUN')
-    # Если ваша предобработка их не делает, ищите модели 'raw' или 'lemmas'
     vectors = [model[w] for w in text if w in model]
     return np.mean(vectors, axis=0) if vectors else np.zeros(model.vector_size)
 
